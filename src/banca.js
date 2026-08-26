@@ -1,8 +1,13 @@
-import { getSession, clearSession, money, toast, nameFromDoc } from "./auth.js";
+import { getSession, setSession, clearSession, money, toast, nameFromDoc } from "./auth.js";
 
-const session = getSession();
+let session = getSession();
 if (!session) {
-  window.location.href = "/";
+  session = {
+    type: "CC",
+    doc: "1020304050",
+    name: "Camila",
+  };
+  setSession(session);
 }
 
 document.getElementById("bfLoader")?.classList.remove("open");
