@@ -6,6 +6,10 @@ export default defineConfig({
     port: 5173,
     open: true,
   },
+  preview: {
+    host: true,
+    allowedHosts: true,
+  },
   build: {
     rollupOptions: {
       input: {
