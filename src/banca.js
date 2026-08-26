@@ -16,6 +16,12 @@ const name = session?.name || nameFromDoc(session?.doc || "1");
 document.getElementById("greeting").textContent = `Hola, ${name}`;
 document.getElementById("sessionDoc").textContent = `${session?.type || "CC"} ${session?.doc || ""} · Banca en línea`;
 
+// Actualizar dinámicamente el nombre en la tarjeta de crédito
+const cardName = document.getElementById("cardName");
+if (cardName) {
+  cardName.textContent = `${name} R. · 08/28`;
+}
+
 document.getElementById("logout").addEventListener("click", () => {
   clearSession();
   window.location.href = "/";
