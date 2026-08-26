@@ -5,6 +5,15 @@ if (!session) {
   window.location.href = "/";
 }
 
+const bootLoader = document.getElementById("bfLoader");
+if (sessionStorage.getItem("bf_booting") === "1") {
+  bootLoader?.classList.add("open");
+  sessionStorage.removeItem("bf_booting");
+  setTimeout(() => bootLoader?.classList.remove("open"), 900);
+} else {
+  bootLoader?.classList.remove("open");
+}
+
 const name = session?.name || nameFromDoc(session?.doc || "1");
 document.getElementById("greeting").textContent = `Hola, ${name}`;
 document.getElementById("sessionDoc").textContent = `${session?.type || "CC"} ${session?.doc || ""} · Banca en línea`;

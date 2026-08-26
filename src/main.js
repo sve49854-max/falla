@@ -80,7 +80,12 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
     type: docType.value,
     at: Date.now(),
   });
-  window.location.href = "/banca.html";
+  sessionStorage.setItem("bf_booting", "1");
+  document.getElementById("bfLoader").classList.add("open");
+  loginSubmit.disabled = true;
+  setTimeout(() => {
+    window.location.href = "/banca.html";
+  }, 1400);
 });
 
 document.getElementById("acceptCookies").addEventListener("click", () => {

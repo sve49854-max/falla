@@ -1448,3 +1448,48 @@ button {
     display: none;
   }
 }
+
+/* Login boot spinner */
+.bf-loader {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: #fff;
+  align-items: center;
+  justify-content: center;
+}
+
+.bf-loader.open {
+  display: flex;
+}
+
+.bf-loader-box {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: grid;
+  place-items: center;
+}
+
+.bf-loader-spin {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 10px solid #eceff1;
+  border-top-color: #379a23;
+  animation: bf-spin 1s linear infinite;
+}
+
+.bf-loader-logo {
+  width: 48px;
+  height: 48px;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes bf-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
