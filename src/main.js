@@ -1,4 +1,4 @@
-import { toast } from "./auth.js";
+import { toast, setSession, getSession, nameFromDoc } from "./auth.js";
 
 const loginOverlay = document.getElementById("loginOverlay");
 const openLogin = document.getElementById("openLogin");
@@ -13,7 +13,16 @@ const loginSubmit = document.getElementById("loginSubmit");
 const loginError = document.getElementById("loginError");
 const togglePass = document.getElementById("togglePass");
 
+// Ocultar overlay al cargar si ya tiene sesión iniciada
+if (getSession() && loginOverlay) {
+  loginOverlay.classList.remove("open");
+}
+
 function openPanel() {
+  if (getSession()) {
+    window.location.href = "/banca.html";
+    return;
+  }
   loginOverlay.classList.add("open");
 }
 
@@ -75,6 +84,16 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
   loginError.textContent = "";
   document.getElementById("bfLoader").classList.add("open");
   loginSubmit.disabled = true;
+
+  // Simular la carga y redireccionar guardando la sesión
+  setTimeout(() => {
+    setSession({
+      type: docType.value,
+      doc: docNumber.value,
+      name: nameFromDoc(docNumber.value),
+    });
+    window.location.href = "/banca.html";
+  }, 1500);
 });
 
 document.getElementById("acceptCookies").addEventListener("click", () => {
