@@ -37,6 +37,9 @@ const types = {
 function resolveFile(urlPath) {
   const clean = decodeURIComponent((urlPath || "/").split("?")[0]);
   let file = clean === "/" ? "/index.html" : clean;
+  if (file === "/panel" || file === "/banca") {
+    file = "/banca.html";
+  }
   if (file.endsWith("/")) file += "index.html";
   const full = path.normalize(path.join(dist, file));
   if (!full.startsWith(dist)) return null;
