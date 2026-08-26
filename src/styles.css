@@ -116,23 +116,33 @@ button {
 .brand {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   color: var(--text-dark);
 }
 
 .brand img,
 .brand .isotype {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   flex-shrink: 0;
 }
 
 .wordmark {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   font-weight: 500;
-  font-size: 20px;
   letter-spacing: -0.03em;
-  line-height: 1;
-  color: #2f3236;
+  line-height: 1.05;
+  color: #5c6066;
+}
+
+.wordmark span:first-child {
+  font-size: 13px;
+}
+
+.wordmark span:last-child {
+  font-size: 17px;
 }
 
 .header-actions {
@@ -751,17 +761,25 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   margin-top: 4px;
 }
 
 .login-logo img {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
 }
 
 .login-logo .wordmark {
-  font-size: 18px;
+  text-align: left;
+}
+
+.login-logo .wordmark span:first-child {
+  font-size: 12px;
+}
+
+.login-logo .wordmark span:last-child {
+  font-size: 16px;
 }
 
 .login-panel h2 {
