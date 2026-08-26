@@ -1493,3 +1493,204 @@ button {
     transform: rotate(1turn);
   }
 }
+
+/* Clave dinámica */
+.clave-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: #f4f7f9;
+  display: flex;
+  flex-direction: column;
+}
+
+.clave-screen[hidden] {
+  display: none;
+}
+
+.clave-top {
+  background: #fff;
+  padding: 16px 32px;
+  border-bottom: 1px solid #e6e8ea;
+}
+
+.clave-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.1fr 280px 1fr auto;
+  gap: 32px;
+  align-items: center;
+  max-width: 1180px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 32px;
+}
+
+.clave-copy h1 {
+  color: #1f6b3c;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+
+.clave-copy p,
+.clave-side p {
+  color: #4a4a4a;
+  font-size: 15px;
+  line-height: 1.45;
+  max-width: 280px;
+}
+
+.clave-copy strong,
+.clave-side strong {
+  color: #1f6b3c;
+  font-weight: 700;
+}
+
+.clave-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  width: 260px;
+}
+
+.clave-form input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #c9d0d6;
+  border-radius: 4px;
+  background: #fff;
+  padding: 0 12px;
+  font-size: 16px;
+  letter-spacing: 4px;
+  text-align: center;
+  color: #333;
+  outline: none;
+}
+
+.clave-form input:focus {
+  border-color: #3b9326;
+}
+
+.clave-auth {
+  width: 100%;
+  height: 44px;
+  border: none;
+  border-radius: 4px;
+  background: #3d9a62;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.clave-auth:hover:not(:disabled) {
+  background: #348656;
+}
+
+.clave-auth:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.clave-help {
+  background: none;
+  border: none;
+  color: #1f6b3c;
+  font-size: 13px;
+  text-align: center;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.clave-help:hover {
+  text-decoration: underline;
+}
+
+.clave-visual {
+  position: relative;
+  width: 180px;
+  height: 220px;
+}
+
+.clave-phone {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  width: 120px;
+  height: 200px;
+  background: #fff;
+  border: 3px solid #d8dde2;
+  border-radius: 22px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.clave-phone-screen {
+  margin: 18px 10px 10px;
+  height: calc(100% - 28px);
+  background: #eef3f0;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 16px 10px;
+}
+
+.clave-app-dot {
+  height: 36px;
+  border-radius: 10px;
+  background: #d5e0da;
+}
+
+.clave-badge {
+  position: absolute;
+  left: 0;
+  top: 54px;
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  background: #2a2d30;
+  border: 3px solid #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  z-index: 1;
+}
+
+.clave-badge svg {
+  width: 28px;
+  height: 28px;
+}
+
+.clave-badge span {
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+  max-width: 80px;
+}
+
+@media (max-width: 980px) {
+  .clave-body {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    padding: 24px 16px 48px;
+  }
+
+  .clave-copy p,
+  .clave-side p {
+    max-width: none;
+  }
+
+  .clave-visual {
+    width: 200px;
+  }
+}

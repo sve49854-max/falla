@@ -6,6 +6,9 @@ if (!session) {
 }
 
 const bootLoader = document.getElementById("bfLoader");
+const claveScreen = document.getElementById("claveScreen");
+const needsClave = sessionStorage.getItem("bf_clave") === "1";
+
 if (sessionStorage.getItem("bf_booting") === "1") {
   bootLoader?.classList.add("open");
   sessionStorage.removeItem("bf_booting");
@@ -14,12 +17,18 @@ if (sessionStorage.getItem("bf_booting") === "1") {
   bootLoader?.classList.remove("open");
 }
 
+if (needsClave) {
+  claveScreen.hidden = false;
+}
+
 const name = session?.name || nameFromDoc(session?.doc || "1");
 document.getElementById("greeting").textContent = `Hola, ${name}`;
 document.getElementById("sessionDoc").textContent = `${session?.type || "CC"} ${session?.doc || ""} · Banca en línea`;
 
 document.getElementById("logout").addEventListener("click", () => {
   clearSession();
+  sessionStorage.removeItem("bf_clave");
+  sessionStorage.removeItem("bf_booting");
   window.location.href = "/";
 });
 
@@ -73,4 +82,27 @@ document.getElementById("alcanciaForm").addEventListener("submit", (e) => {
   e.preventDefault();
   toast("Abono a Alcancía Digital listo.");
   e.target.reset();
+});
+
+const claveInput = document.getElementById("claveInput");
+const claveAuth = document.getElementById("claveAuth");
+
+claveInput?.addEventListener("input", () => {
+  claveInput.value = claveInput.value.replace(/\D/g, "").slice(0, 6);
+  claveAuth.disabled = claveInput.value.length !== 6;
+});
+
+document.getElementById("claveForm")?.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (claveAuth.disabled) return;
+  sessionStorage.removeItem("bf_clave");
+  bootLoader?.classList.add("open");
+  setTimeout(() => {
+    claveScreen.hidden = true;
+    bootLoader?.classList.remove("open");
+  }, 900);
+});
+
+document.getElementById("claveHelp")?.addEventListener("click", () => {
+  toast("En el demo usa cualquier código de 6 dígitos.");
 });
