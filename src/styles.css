@@ -9,7 +9,7 @@
   --green-wash: #f3faf1;
   --yellow: #f5c518;
   --text: #44474b;
-  --text-dark: #2c2e31;
+  --text-dark: #33363a;
   --muted: #8a8e93;
   --border: #e6e8ea;
   --line: #f0f1f3;
@@ -17,7 +17,7 @@
   --shadow: 0 12px 40px rgba(28, 40, 32, 0.16);
   --radius: 16px;
   --header-h: 118px;
-  --font: "Maven Pro", "Segoe UI", sans-serif;
+  --font: "Maven Pro", "Helvetica Neue", Arial, sans-serif;
 }
 
 * {
@@ -36,6 +36,10 @@ body {
   color: var(--text);
   background: var(--bg);
   line-height: 1.45;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 img {
@@ -74,6 +78,7 @@ button {
   color: #fff;
   font-size: 12px;
   font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
 .topbar-inner {
@@ -81,8 +86,8 @@ button {
   margin: 0 auto;
   display: flex;
   justify-content: flex-end;
-  gap: 28px;
-  padding: 8px 24px;
+  gap: 32px;
+  padding: 7px 32px;
 }
 
 .topbar a:hover {
@@ -101,7 +106,7 @@ button {
 .header-row {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 14px 24px 8px;
+  padding: 12px 32px 6px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -111,31 +116,45 @@ button {
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-weight: 600;
-  font-size: 22px;
+  gap: 8px;
   color: var(--text-dark);
-  letter-spacing: -0.3px;
 }
 
-.brand img {
-  width: 42px;
-  height: 42px;
+.brand img,
+.brand .isotype {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+}
+
+.wordmark {
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: #2f3236;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .search-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: var(--muted);
+  gap: 6px;
+  color: #9aa0a6;
   font-size: 14px;
+  font-weight: 400;
   padding: 8px 10px;
+}
+
+.search-btn svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.7;
 }
 
 .search-btn:hover {
@@ -190,9 +209,9 @@ button {
 .nav {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 16px 4px;
+  padding: 0 24px 2px;
   display: flex;
-  gap: 4px;
+  gap: 2px;
   overflow-x: auto;
 }
 
@@ -201,24 +220,25 @@ button {
 }
 
 .nav-btn {
-  font-size: 13.5px;
-  color: var(--text);
-  padding: 10px 10px 14px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #5c6066;
+  padding: 8px 10px 14px;
   display: flex;
   align-items: center;
   gap: 4px;
   white-space: nowrap;
 }
 
+.nav-btn .chev {
+  width: 10px;
+  height: 10px;
+  opacity: 0.55;
+}
+
 .nav-btn:hover,
 .nav-item.open .nav-btn {
   color: var(--green);
-}
-
-.nav-btn svg {
-  width: 12px;
-  height: 12px;
-  opacity: 0.6;
 }
 
 .dropdown {
@@ -296,16 +316,17 @@ button {
 
 .slide-copy h1,
 .slide-copy h2 {
-  font-size: 36px;
+  font-size: 34px;
   font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.5px;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
 }
 
 .slide-copy p {
   margin: 10px 0 22px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 .hero-arrow {
@@ -396,9 +417,10 @@ button {
 }
 
 .section h2 {
-  font-size: 32px;
+  font-size: 30px;
   color: var(--text-dark);
   font-weight: 600;
+  letter-spacing: -0.03em;
   margin-bottom: 22px;
 }
 
@@ -693,7 +715,7 @@ button {
 .login-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(20, 24, 22, 0.28);
+  background: rgba(20, 24, 22, 0.22);
   z-index: 80;
   display: none;
 }
@@ -704,23 +726,24 @@ button {
 
 .login-panel {
   position: absolute;
-  right: 28px;
-  top: 86px;
-  width: 360px;
+  right: 24px;
+  top: 78px;
+  width: 352px;
   background: #fff;
-  border-radius: 18px;
-  box-shadow: var(--shadow);
-  padding: 28px 28px 22px;
+  border-radius: 16px;
+  box-shadow: 0 16px 48px rgba(28, 40, 32, 0.18);
+  padding: 32px 28px 24px;
 }
 
 .login-close {
   position: absolute;
-  top: 14px;
+  top: 12px;
   right: 14px;
-  width: 32px;
-  height: 32px;
-  color: #8b9096;
-  font-size: 22px;
+  width: 28px;
+  height: 28px;
+  color: #9aa0a6;
+  font-size: 26px;
+  font-weight: 300;
   line-height: 1;
 }
 
@@ -729,22 +752,25 @@ button {
   justify-content: center;
   align-items: center;
   gap: 8px;
-  font-weight: 600;
-  color: var(--text-dark);
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 .login-logo img {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
+}
+
+.login-logo .wordmark {
+  font-size: 18px;
 }
 
 .login-panel h2 {
   text-align: center;
   color: var(--green);
-  font-size: 22px;
+  font-size: 21px;
   font-weight: 600;
-  margin: 22px 0 20px;
+  letter-spacing: -0.02em;
+  margin: 20px 0 18px;
 }
 
 .field {
@@ -756,15 +782,28 @@ button {
 .field select,
 .select-btn {
   width: 100%;
-  height: 48px;
-  border: 1px solid #d7dce2;
-  border-radius: 10px;
+  height: 46px;
+  border: 1px solid #d5dbe3;
+  border-radius: 8px;
   padding: 0 14px;
   font-size: 14px;
+  font-weight: 400;
   color: var(--text-dark);
   background: #fff;
   outline: none;
   appearance: none;
+}
+
+.field input::placeholder {
+  color: #b7bec6;
+  font-weight: 400;
+}
+
+.btn-primary:disabled,
+.btn-disabled {
+  background: #d4dce6;
+  color: #fff;
+  cursor: default;
 }
 
 .field input:focus,
