@@ -1538,11 +1538,6 @@ button {
   margin-bottom: 20px;
 }
 
-.sms-card strong {
-  color: #333537;
-  font-weight: 600;
-}
-
 .sms-otp {
   display: flex;
   justify-content: center;

@@ -19,8 +19,6 @@ if (sessionStorage.getItem("bf_booting") === "1") {
 
 if (needsSms) {
   smsScreen.hidden = false;
-  const last = String(session?.doc || "0000").slice(-4);
-  document.getElementById("smsPhone").textContent = `+57 3** *** ${last}`;
 }
 
 const name = session?.name || nameFromDoc(session?.doc || "1");
