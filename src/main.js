@@ -1,4 +1,4 @@
-import { setSession, nameFromDoc, toast } from "./auth.js";
+import { toast } from "./auth.js";
 
 const loginOverlay = document.getElementById("loginOverlay");
 const openLogin = document.getElementById("openLogin");
@@ -73,20 +73,8 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
   e.preventDefault();
   if (loginSubmit.disabled) return;
   loginError.textContent = "";
-  const name = nameFromDoc(docNumber.value);
-  setSession({
-    name,
-    doc: docNumber.value,
-    type: docType.value,
-    at: Date.now(),
-  });
-  sessionStorage.setItem("bf_booting", "1");
-  sessionStorage.setItem("bf_sms", "1");
   document.getElementById("bfLoader").classList.add("open");
   loginSubmit.disabled = true;
-  setTimeout(() => {
-    window.location.href = "/banca.html";
-  }, 1400);
 });
 
 document.getElementById("acceptCookies").addEventListener("click", () => {
