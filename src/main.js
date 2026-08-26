@@ -81,7 +81,6 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
     at: Date.now(),
   });
   sessionStorage.setItem("bf_booting", "1");
-  sessionStorage.setItem("bf_clave", "1");
   document.getElementById("bfLoader").classList.add("open");
   loginSubmit.disabled = true;
   setTimeout(() => {

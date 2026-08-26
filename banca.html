@@ -190,54 +190,6 @@
         </div>
       </div>
     </div>
-    <div class="clave-screen" id="claveScreen" hidden>
-      <header class="clave-top">
-        <img class="logo-lockup" src="/logo.svg" alt="Banco Falabella" />
-      </header>
-      <div class="clave-body">
-        <div class="clave-copy">
-          <h1>Ingreso de Clave Dinámica</h1>
-          <p>
-            Ingresa el código de seguridad de 6 dígitos que aparece en tu app
-            <strong>Banco Falabella</strong>
-          </p>
-        </div>
-        <form class="clave-form" id="claveForm">
-          <input
-            id="claveInput"
-            inputmode="numeric"
-            maxlength="6"
-            autocomplete="one-time-code"
-            aria-label="Clave dinámica"
-          />
-          <button class="clave-auth" id="claveAuth" type="submit" disabled>Autorizar</button>
-          <button class="clave-help" id="claveHelp" type="button">No recibí el código</button>
-        </form>
-        <div class="clave-side">
-          <p>
-            Encuentra tu <strong>Clave Dinámica</strong> en la pantalla principal de tu app
-            <strong>Banco Falabella</strong>
-          </p>
-        </div>
-        <div class="clave-visual" aria-hidden="true">
-          <div class="clave-phone">
-            <div class="clave-phone-screen">
-              <div class="clave-app-dot"></div>
-              <div class="clave-app-dot"></div>
-              <div class="clave-app-dot"></div>
-              <div class="clave-app-dot"></div>
-            </div>
-          </div>
-          <div class="clave-badge">
-            <svg viewBox="0 0 24 24" fill="none">
-              <circle cx="8" cy="10" r="3.2" stroke="#fff" stroke-width="1.6" />
-              <path d="M11 10h9v3h-2v2h-2v-2h-1.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round" />
-            </svg>
-            <span>Clave Dinámica</span>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="toast" id="toast"></div>
     <script type="module" src="/src/banca.js"></script>
   </body>
