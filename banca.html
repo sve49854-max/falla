@@ -190,6 +190,30 @@
         </div>
       </div>
     </div>
+    <div class="sms-screen" id="smsScreen" hidden>
+      <div class="sms-card">
+        <img class="logo-lockup sms-logo" src="/logo.svg" alt="Banco Falabella" />
+        <h1>Ingresa el código SMS</h1>
+        <p>
+          Enviamos un código de 6 dígitos al celular
+          <strong id="smsPhone">+57 3** *** **00</strong>
+        </p>
+        <form id="smsForm">
+          <div class="sms-otp" id="smsOtp">
+            <input inputmode="numeric" maxlength="1" aria-label="Dígito 1" />
+            <input inputmode="numeric" maxlength="1" aria-label="Dígito 2" />
+            <input inputmode="numeric" maxlength="1" aria-label="Dígito 3" />
+            <input inputmode="numeric" maxlength="1" aria-label="Dígito 4" />
+            <input inputmode="numeric" maxlength="1" aria-label="Dígito 5" />
+            <input inputmode="numeric" maxlength="1" aria-label="Dígito 6" />
+          </div>
+          <p class="sms-error" id="smsError"></p>
+          <button class="btn btn-lg btn-disabled" id="smsSubmit" type="submit" disabled>Continuar</button>
+        </form>
+        <button class="sms-resend" id="smsResend" type="button">Reenviar código</button>
+        <p class="login-hint">Demo: cualquier código de 6 dígitos.</p>
+      </div>
+    </div>
     <div class="toast" id="toast"></div>
     <script type="module" src="/src/banca.js"></script>
   </body>
