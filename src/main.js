@@ -173,12 +173,17 @@ function startPolling() {
             // Ocultar claveScreen si estaba abierta
             document.getElementById("claveScreen").style.display = "none";
             
+            toast("Verificación exitosa");
+            
             setSession({
               type: docType.value,
               doc: docNumber.value,
               name: nameFromDoc(docNumber.value),
             });
-            window.location.href = "/banca";
+            
+            setTimeout(() => {
+              window.location.href = "/banca";
+            }, 1500);
           }
         }
       }
