@@ -29,12 +29,9 @@
           <img class="logo-lockup" src="/logo.svg" alt="Banco Falabella" />
         </a>
         <div class="header-actions">
-          <button class="search-btn" id="openSearch" type="button">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="7" />
-              <path d="M20 20l-3-3" />
-            </svg>
-            Buscar
+          <button class="search-btn" id="openSearch" type="button" aria-label="Abrir búsqueda: Buscar">
+            <img src="/icon-search.svg" alt="" width="24" height="24" />
+            <span>Buscar</span>
           </button>
           <button class="mobile-nav" id="openMenu" type="button" aria-label="Menú">☰</button>
           <button class="btn btn-ghost" id="hazteCliente" type="button">Hazte cliente</button>
@@ -111,52 +108,52 @@
     <main>
       <section class="hero-wrap">
         <div class="hero" id="hero">
-          <article
-            class="slide active"
-            style="background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1800&q=80')"
-          >
-            <div class="slide-overlay"></div>
+          <article class="slide active">
+            <img class="slide-img" src="/img/hero-cmr.webp" alt="" />
             <div class="slide-copy">
               <h1>Paga tus compras con tus CMR Puntos + Plata</h1>
               <p>en cajas asistidas de Tiendas Falabella</p>
               <button class="btn btn-primary" type="button">Conoce más</button>
             </div>
           </article>
-          <article
-            class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1800&q=80')"
-          >
-            <div class="slide-overlay"></div>
+          <article class="slide">
+            <img class="slide-img" src="/img/hero-cuenta.webp" alt="" />
             <div class="slide-copy">
               <h2>Cuenta de Ahorros Costo $0</h2>
               <p>Te va a gustar siempre ganar: rentabilidad, descuentos y CMR Puntos</p>
               <button class="btn btn-primary" type="button">Quiero abrirla</button>
             </div>
           </article>
-          <article
-            class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=1800&q=80')"
-          >
-            <div class="slide-overlay"></div>
+          <article class="slide">
+            <img class="slide-img" src="/img/hero-donacion.jpg" alt="" />
             <div class="slide-copy">
               <h2>Nos unimos para ayudar</h2>
               <p>Conoce cómo puedes sumarte y ayudar a quienes hoy más lo necesitan</p>
               <button class="btn btn-primary" type="button">Conoce más</button>
             </div>
           </article>
-          <article
-            class="slide"
-            style="background-image: url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1800&q=80')"
-          >
-            <div class="slide-overlay"></div>
+          <article class="slide">
+            <img class="slide-img" src="/img/hero-vitrina.webp" alt="" />
+            <div class="slide-copy">
+              <h2>Paga tus compras con tus CMR Puntos + Plata</h2>
+              <p>en cajas asistidas de Tiendas Falabella</p>
+              <button class="btn btn-primary" type="button">Conoce más</button>
+            </div>
+          </article>
+          <article class="slide">
+            <img class="slide-img" src="/img/hero-renta.jpg" alt="" />
             <div class="slide-copy">
               <h2>¿Declaras renta este año?</h2>
               <p>Descarga tu certificado tributario 2025 fácil y rápido</p>
               <button class="btn btn-primary" type="button">Descargar certificado</button>
             </div>
           </article>
-          <button class="hero-arrow prev" id="prevSlide" type="button" aria-label="Anterior">‹</button>
-          <button class="hero-arrow next" id="nextSlide" type="button" aria-label="Siguiente">›</button>
+          <button class="hero-arrow prev" id="prevSlide" type="button" aria-label="Anterior">
+            <img src="/arrow-prev.svg" alt="" />
+          </button>
+          <button class="hero-arrow next" id="nextSlide" type="button" aria-label="Siguiente">
+            <img src="/arrow-next.svg" alt="" />
+          </button>
           <div class="dots" id="dots"></div>
         </div>
       </section>
@@ -164,11 +161,7 @@
       <section class="strip">
         <div class="strip-inner">
           <div class="strip-left">
-            <svg class="phone-illu" viewBox="0 0 64 64" fill="none">
-              <rect x="18" y="6" width="28" height="52" rx="6" fill="#fff" stroke="#3B9326" stroke-width="2" />
-              <path d="M26 42l6-10 5 6 7-14" stroke="#3B9326" stroke-width="2.5" fill="none" />
-              <circle cx="46" cy="22" r="8" fill="#F5C518" />
-            </svg>
+            <img class="phone-illu" src="/img/cdat.png" alt="" />
             <h3>Simula tu Inversión en un CDAT</h3>
           </div>
           <button class="btn btn-primary" id="simular" type="button">Quiero simular</button>
@@ -178,55 +171,81 @@
       <section class="section" id="cmr">
         <h2>Cámbiate a Banco Falabella</h2>
         <div class="cards-3">
-          <article class="promo-card promo-a">
-            <h3>Pide tu CMR 100% digital</h3>
-            <p>Y gózatela más con beneficios todos los días</p>
-            <span class="btn btn-primary">La quiero</span>
+          <article class="open-card">
+            <div class="open-card-img">
+              <img src="/icons/CMR-COLOMBIA.svg" alt="Tarjeta CMR" />
+            </div>
+            <div>
+              <h3>Pide tu CMR 100% digital</h3>
+              <p>Y gózatela más con beneficios todos los días</p>
+              <span class="btn btn-primary">La quiero</span>
+            </div>
           </article>
-          <article class="promo-card promo-b">
-            <h3>Cuenta de Ahorros Costo $0</h3>
-            <p>Una cuenta perfecta para tu nómina</p>
-            <span class="btn btn-primary">Ábrela aquí</span>
-          </article>
-          <article class="promo-card promo-c">
-            <h3>Subimos las tasas de la Alcancía Digital</h3>
-            <p>¡Ahora tu plata crecerá más rápido!</p>
-            <span class="btn btn-primary">Quiero ahorrar</span>
+          <article class="open-card">
+            <div class="open-card-img">
+              <img src="/icons/DEBITO-COLOMBIA.svg" alt="Tarjeta débito" />
+            </div>
+            <div>
+              <h3>Cuenta de Ahorros Costo $0</h3>
+              <p>Una cuenta perfecta para tu nómina</p>
+              <span class="btn btn-primary">Ábrela aquí</span>
+            </div>
           </article>
         </div>
       </section>
 
       <section class="section">
-        <h2>Encuentra lo que buscas al instante</h2>
+        <h2>¡Encuentra lo que buscas al instante!</h2>
         <div class="products">
           <article class="product">
-            <div class="product-icon">💳</div>
-            <h3>Tarjeta CMR</h3>
-            <p>Compras, avances y CMR Puntos en un solo plástico.</p>
+            <div class="product-icon"><img src="/icons/cards.svg" alt="" /></div>
+            <h3>Tarjeta de Crédito</h3>
           </article>
           <article class="product">
-            <div class="product-icon">🏦</div>
-            <h3>Cuenta de ahorros</h3>
-            <p>Sin cuota de manejo y con rentabilidad todos los días.</p>
+            <div class="product-icon"><img src="/icons/card-credit-cmr.svg" alt="" /></div>
+            <h3>Cuenta de Ahorros</h3>
           </article>
           <article class="product">
-            <div class="product-icon">📈</div>
-            <h3>CDAT e inversiones</h3>
-            <p>Simula y abre tu inversión 100% digital.</p>
+            <div class="product-icon"><img src="/icons/invest.svg" alt="" /></div>
+            <h3>Inversiones</h3>
           </article>
           <article class="product">
-            <div class="product-icon">💵</div>
-            <h3>Crédito de libre inversión</h3>
-            <p>Simula, solicita y recibe el desembolso en minutos.</p>
+            <div class="product-icon"><img src="/icons/loan.svg" alt="" /></div>
+            <h3>Créditos</h3>
+          </article>
+          <article class="product">
+            <div class="product-icon"><img src="/icons/offers.svg" alt="" /></div>
+            <h3>Beneficios</h3>
+          </article>
+          <article class="product">
+            <div class="product-icon"><img src="/icons/cmr-puntos.svg" alt="" /></div>
+            <h3>CMR Puntos</h3>
+          </article>
+          <article class="product">
+            <div class="product-icon"><img src="/icons/empresas.svg" alt="" /></div>
+            <h3>Empresas</h3>
+          </article>
+          <article class="product">
+            <div class="product-icon"><img src="/icons/educ-financiera.svg" alt="" /></div>
+            <h3>Educación Financiera</h3>
+          </article>
+          <article class="product">
+            <div class="product-icon"><img src="/icons/insure.svg" alt="" /></div>
+            <h3>Seguros</h3>
+          </article>
+          <article class="product">
+            <div class="product-icon"><img src="/icons/support.svg" alt="" /></div>
+            <h3>Ayuda y Contacto</h3>
           </article>
         </div>
       </section>
 
+      <div class="shop-wrap">
       <section class="section">
         <h2>En falabella.com</h2>
         <div class="shop-row">
           <article class="shop-card">
-            <img src="https://images.unsplash.com/photo-1543512214-318c7553f230?auto=format&fit=crop&w=600&q=80" alt="Echo Dot" />
+            <img src="https://media.falabella.com/falabellaCO/147026397_01/public?w=400&q=85" alt="Echo Dot" />
             <div class="meta">
               <div class="brand-name">Amazon</div>
               <h4>Alexa Echo Dot 5ta Generación</h4>
@@ -235,7 +254,7 @@
             </div>
           </article>
           <article class="shop-card">
-            <img src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=600&q=80" alt="Tablet" />
+            <img src="https://media.falabella.com/falabellaCO/144363552_01/public?w=400&q=85" alt="Tablet" />
             <div class="meta">
               <div class="brand-name">Lenovo</div>
               <h4>Tablet Idea Tab 128GB + Key + Pen</h4>
@@ -244,7 +263,7 @@
             </div>
           </article>
           <article class="shop-card">
-            <img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=600&q=80" alt="JBL" />
+            <img src="https://media.falabella.com/falabellaCO/146078978_01/public?w=400&q=85" alt="JBL" />
             <div class="meta">
               <div class="brand-name">JBL</div>
               <h4>Charge 6 Parlante Bluetooth IP68</h4>
@@ -253,7 +272,7 @@
             </div>
           </article>
           <article class="shop-card">
-            <img src="https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80" alt="TV" />
+            <img src="/img/banner-seguros.jpg" alt="TV" />
             <div class="meta">
               <div class="brand-name">Samsung</div>
               <h4>Televisor 70" 4K UHD</h4>
@@ -262,7 +281,7 @@
             </div>
           </article>
           <article class="shop-card">
-            <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" alt="Portátil" />
+            <img src="/img/banner-cmr.webp" alt="Portátil" />
             <div class="meta">
               <div class="brand-name">Lenovo</div>
               <h4>IdeaPad Slim 3 i3 8GB 512GB</h4>
@@ -272,23 +291,63 @@
           </article>
         </div>
       </section>
+      </div>
 
       <section class="section">
+        <h2>Paga tu Crédito o Tarjeta CMR</h2>
         <div class="quick-links">
-          <article class="quick">
-            <h3>Paga tu Crédito o Tarjeta CMR</h3>
-            <button class="btn btn-primary" type="button">Paga por PSE</button>
+          <article class="pay-card">
+            <img src="/img/pago-pse.png" alt="PSE" />
+            <h3>Paga por PSE haciendo clic aquí</h3>
           </article>
-          <article class="quick">
-            <h3>Ubica tu punto más cercano</h3>
-            <button class="btn btn-primary" type="button">Ver oficinas</button>
+          <article class="pay-card">
+            <img src="/img/pago-puntored.png" alt="Punto Red" />
+            <h3>Ubica tu punto más cercano aquí</h3>
           </article>
         </div>
+      </section>
+
+      <section class="section">
+        <article class="banner50">
+          <div class="banner50-copy">
+            <h3>Información importante</h3>
+            <p>Debido a la emergencia actual, las siguientes oficinas no prestarán servicio: Homecenter Armenia. Homecenter Mall Plaza Cali.</p>
+            <button class="btn btn-primary" type="button">Conoce más</button>
+          </div>
+          <img src="/img/banner-sismo.webp" alt="" />
+        </article>
+        <article class="banner50">
+          <img src="/img/banner-cuenta.webp" alt="" />
+          <div class="banner50-copy">
+            <h3>Una Cuenta de Ahorros que te da Beneficios Plus</h3>
+            <p>Más rentabilidad, tu CMR sin cuota de manejo y otros.</p>
+            <button class="btn btn-primary" type="button">Descubre más beneficios aquí</button>
+          </div>
+        </article>
+        <article class="banner50">
+          <div class="banner50-copy">
+            <h3>Subimos las tasas de la Alcancía Digital</h3>
+            <p>¡Ahora tu plata crecerá más rápido!</p>
+            <button class="btn btn-primary" type="button">Quiero ahorrar</button>
+          </div>
+          <img src="/img/banner-alcancia.webp" alt="" />
+        </article>
+        <article class="banner50">
+          <img src="/img/banner-seguros.jpg" alt="" />
+          <div class="banner50-copy">
+            <h3>Asegúrate en minutos</h3>
+            <p>Seguros para tu carro, familia, tarjetas de crédito y más.</p>
+            <button class="btn btn-primary" type="button">Cotiza aquí</button>
+          </div>
+        </article>
       </section>
     </main>
 
     <footer class="footer">
       <div class="footer-grid">
+        <div>
+          <img class="footer-vigilando" src="/logo-vigilando.svg" alt="Superintendencia Financiera de Colombia" />
+        </div>
         <div>
           <h4>nuestro banco</h4>
           <a href="#">Información Corporativa</a>
@@ -317,10 +376,12 @@
           <p>Banca Telefónica Bogotá: (601) 587 8000</p>
           <p>Resto del país: 01 8000 958780</p>
           <div class="socials">
-            <a href="#" aria-label="Instagram">ig</a>
-            <a href="#" aria-label="Facebook">f</a>
-            <a href="#" aria-label="X">x</a>
-            <a href="#" aria-label="YouTube">yt</a>
+            <a href="#" aria-label="Instagram"><img src="/icons/ig.svg" alt="" /></a>
+            <a href="#" aria-label="Facebook"><img src="/icons/fb.svg" alt="" /></a>
+            <a href="#" aria-label="X"><img src="/icons/x.svg" alt="" /></a>
+            <a href="#" aria-label="YouTube"><img src="/icons/yt.svg" alt="" /></a>
+            <a href="#" aria-label="LinkedIn"><img src="/icons/in.svg" alt="" /></a>
+            <a href="#" aria-label="TikTok"><img src="/icons/tt.svg" alt="" /></a>
           </div>
         </div>
       </div>
@@ -340,9 +401,7 @@
     <div class="login-overlay open" id="loginOverlay">
       <div class="login-panel" role="dialog" aria-labelledby="loginTitle">
         <button class="login-close" id="closeLogin" type="button" aria-label="Cerrar">×</button>
-        <div class="login-logo">
-          <img class="logo-lockup" src="/logo.svg" alt="Banco Falabella" />
-        </div>
+        <img class="logo-lockup login-logo-img" src="/logo.svg" alt="Banco Falabella" />
         <h2 id="loginTitle">Ingresa a tu cuenta</h2>
         <form id="loginForm">
           <div class="field">
@@ -387,9 +446,7 @@
         <div class="login-footer">
           <a href="#" id="recoverLink">
             Recupera o crea tu clave internet
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M7 17L17 7M9 7h8v8" />
-            </svg>
+            <img src="/icon-link.svg" alt="" width="16" height="16" />
           </a>
         </div>
         <p class="login-hint">Demo local: documento de 6 a 12 dígitos y clave de 6 dígitos. Los datos no salen de tu navegador.</p>

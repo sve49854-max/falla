@@ -178,7 +178,7 @@ document.getElementById("hazteCliente").addEventListener("click", () => {
   openPanel();
 });
 
-document.querySelectorAll(".promo-card, .product, .quick").forEach((el) => {
+document.querySelectorAll(".open-card, .product, .pay-card, .banner50, .shop-card").forEach((el) => {
   el.style.cursor = "pointer";
   el.addEventListener("click", openPanel);
 });
