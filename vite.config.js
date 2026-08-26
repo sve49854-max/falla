@@ -1,10 +1,14 @@
 import { defineConfig } from "vite";
-import { resolve } from "path";
+import { resolve, dirname } from "path";
+import { fileURLToPath } from "url";
+
+const root = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   server: {
     port: 5173,
     open: true,
+    allowedHosts: [".onrender.com"],
   },
   preview: {
     host: true,
@@ -13,8 +17,8 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "index.html"),
-        banca: resolve(__dirname, "banca.html"),
+        main: resolve(root, "index.html"),
+        banca: resolve(root, "banca.html"),
       },
     },
   },
