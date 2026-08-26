@@ -1,16 +1,16 @@
 :root {
   --green: #3b9326;
   --green-hover: #348320;
-  --green-dark: #2f7a1e;
-  --green-deep: #1f5a14;
+  --green-dark: #347b23;
+  --green-deep: #007a33;
   --green-text: #347b23;
   --green-soft: #eaf6e6;
   --green-muted: rgba(59, 146, 38, 0.12);
-  --green-wash: #f3faf1;
-  --yellow: #f5c518;
+  --green-wash: #eff8ea;
+  --yellow: #c3d600;
   --text: #44474b;
-  --text-dark: #33363a;
-  --muted: #8a8e93;
+  --text-dark: #333537;
+  --muted: #8b929b;
   --border: #e6e8ea;
   --line: #f0f1f3;
   --bg: #ffffff;
@@ -74,24 +74,36 @@ button {
 
 /* Top bar */
 .topbar {
-  background: var(--green);
+  background: #347b23;
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.01em;
+  height: 40px;
 }
 
 .topbar-inner {
-  max-width: 1280px;
+  max-width: 1366px;
   margin: 0 auto;
   display: flex;
   justify-content: flex-end;
-  gap: 32px;
-  padding: 7px 32px;
+  align-items: stretch;
+  gap: 0;
+  padding: 0 16px;
+  height: 100%;
+}
+
+.topbar a {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.8125rem;
 }
 
 .topbar a:hover {
-  opacity: 0.85;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 /* Header */
@@ -116,33 +128,12 @@ button {
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  color: var(--text-dark);
 }
 
-.brand img,
-.brand .isotype {
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-}
-
-.wordmark {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  color: #5c6066;
-}
-
-.wordmark span:first-child {
-  font-size: 13px;
-}
-
-.wordmark span:last-child {
-  font-size: 17px;
+.logo-lockup {
+  height: 38px;
+  width: auto;
+  display: block;
 }
 
 .header-actions {
@@ -759,36 +750,23 @@ button {
 
 .login-logo {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  gap: 10px;
   margin-top: 4px;
 }
 
-.login-logo img {
-  width: 36px;
-  height: 36px;
-}
-
-.login-logo .wordmark {
-  text-align: left;
-}
-
-.login-logo .wordmark span:first-child {
-  font-size: 12px;
-}
-
-.login-logo .wordmark span:last-child {
-  font-size: 16px;
+.login-logo .logo-lockup {
+  height: 40px;
 }
 
 .login-panel h2 {
   text-align: center;
-  color: var(--green);
-  font-size: 21px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin: 20px 0 18px;
+  color: #347b23;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+  margin: 8px 0 8px;
 }
 
 .field {
