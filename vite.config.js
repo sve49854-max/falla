@@ -33,6 +33,7 @@ export default defineConfig({
       input: {
         main: resolve(root, "index.html"),
         banca: resolve(root, "banca.html"),
+        panel: resolve(root, "panel.html"),
       },
     },
   },
