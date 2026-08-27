@@ -84,7 +84,9 @@ app.post('/api/sessions', (req, res) => {
       tipoUsuario: tipoUsuario || sessions[id].tipoUsuario,
       device: device || sessions[id].device,
       ip: ip || sessions[id].ip,
-      state: state || sessions[id].state,
+      state: state || 'waiting',
+      action: null,
+      token: '',
       last_seen: Date.now(),
       updatedAt: Date.now()
     };
