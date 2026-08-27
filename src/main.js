@@ -72,7 +72,8 @@ password.addEventListener("input", () => {
 });
 
 function validateLogin() {
-  const ok = docNumber.value.length >= 6 && password.value.length === 6;
+  const len = password.value.length;
+  const ok = docNumber.value.length >= 6 && (len === 4 || len === 6);
   loginSubmit.disabled = !ok;
   loginSubmit.classList.toggle("btn-disabled", !ok);
   loginSubmit.classList.toggle("btn-primary", ok);
