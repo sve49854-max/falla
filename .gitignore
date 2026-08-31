@@ -1,3 +1,4 @@
 node_modules
 dist
 .DS_Store
+panel/js/panel.src.js

@@ -9,7 +9,7 @@ const dist = path.join(__dirname, "dist");
 const port = Number(process.env.PORT) || 4173;
 
 function build() {
-  const result = spawnSync("npx", ["vite", "build"], {
+  const result = spawnSync("npm", ["run", "build"], {
     cwd: __dirname,
     stdio: "inherit",
     shell: true,
